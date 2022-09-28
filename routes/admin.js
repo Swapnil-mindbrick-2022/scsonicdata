@@ -20,7 +20,7 @@ app.get('/admin', function (req, res, next) {
 
 
 
-//Register Login---------
+//Register User---------
 app.post('/admin', function(req, res, next) {
 	console.log(req.body);
 	const personInfo = req.body;
@@ -121,7 +121,7 @@ app.post('/data',(req,res)=>{
 })
 
 
-// get data
+// get data on the table and graph 
 app.get('/dashboard', admin,function (req, res, next) {
 
 	const alldata= List.find({},(err,data)=>{
@@ -167,7 +167,7 @@ app.get('/dashboard', admin,function (req, res, next) {
 	
 });
 
-
+//  delete table deta
 app.delete('/delete/:id',admin,  (req,res)=>{
 	List.findByIdAndRemove(req.params.id,(err)=>{
 		if (err){
@@ -180,9 +180,15 @@ app.delete('/delete/:id',admin,  (req,res)=>{
 
 	
 })
+//  for sliding dashboard deta sample view file 
+app.get('/dashdata', admin,function (req, res, next) {
+	return res.render('user/dashboard.ejs');
+	
+});
+app.get('/demand', admin,function (req, res, next) {
+	return res.render('user/demand.ejs');
+	
+});
 
 }
-
-
-
 module.exports = adminRoute;
