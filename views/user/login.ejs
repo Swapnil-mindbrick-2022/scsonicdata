@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>Login</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+	</script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../css/adminlogin.css">
+</head>
+
+<body>
+	<div class="box">
+		<form id="form" method="post" autocomplete="off">
+			<h2> LOGIN</h2>
+			<div class="inputBox">
+				<input type="text" name="username" required="required">
+				<span>Userame</span>
+				<i></i>
+			</div>
+			<div class="inputBox">
+				<input type="password"name="password"  required="required">
+				<span>Password</span>
+				<i></i>
+			</div>
+			<div class="links">
+				<!-- <a href="/adminforgetpass">Forgot Password ?</a> -->
+				<a href="/admin">Signup</a>
+			</div>
+			<input type="submit" value="Login">
+		</form>
+	</div>
+	<div class="mssg bg-danger">
+		<span id="check1" ></span>
+	</div>
+	<div id="LangTable"><a href="/adminprofile" id="aa1"></a>
+	</div>
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+
+			$( "#form3" ).submit(function(event) {
+				event.preventDefault();
+
+				$.ajax({
+					type: 'POST',
+					url: '/adminlogin',
+					data: $('#form3').serialize(),
+					dataType: "json",
+					success: function(response){
+						//alert("a");
+						//console.log(response.Success);
+						$('#form3')[0].reset();
+
+						document.getElementById("check1").innerHTML=response.Success;
+         					//ADD THIS CODE
+         					setTimeout(function(){
+         						document.getElementById("check1").innerHTML="";
+         					},3000);
+         					if (response.Success=="Success!") {
+         						document.getElementById("aa1").click();
+         					};
+         				},
+         				error: function() {
+         				}
+         			})
+			});
+
+		});
+	</script>
+</body>
+</html>
